@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ministerios · Iglesia Vida de Fe</title>
+<meta name="description" content="Ministerios de la Iglesia Vida de Fe: hombres, damas, jóvenes, niños, guardería y más.">
+<link rel="icon" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="ministerios">
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="label"><span lang="es">Sirviendo juntos</span><span lang="en">Serving together</span></div>
+    <h1><span lang="es">Ministerios</span><span lang="en">Ministries</span></h1>
+    <p class="hero-sub" style="max-width:36em"><span lang="es">Toca un ministerio para ver lo que hace y sus actividades.</span><span lang="en">Tap a ministry to see what it does and its activities.</span></p>
+  </div>
+</section>
+
+<main class="section">
+  <div class="wrap">
+    <div class="min-grid" id="all-min"></div>
+  </div>
+</main>
+
+<script src="js/config.js"></script>
+<script src="js/data.js"></script>
+<script>
+document.getElementById("all-min").innerHTML = VDF_MIN.map(m => `<a class="min-card reveal" href="ministerio.html?m=${m.slug}">${m.logo ? `<img src="${m.logo}" alt="">` : ""}<span class="eyebrow"><span lang="es">${m.eyebrow.es}</span><span lang="en">${m.eyebrow.en}</span></span><h3><span lang="es">${m.name.es}</span><span lang="en">${m.name.en}</span></h3><span class="muted"><span lang="es">${m.desc.es}</span><span lang="en">${m.desc.en}</span></span></a>`).join("");
+</script>
+<script src="js/site.js"></script>
+</body>
+</html>

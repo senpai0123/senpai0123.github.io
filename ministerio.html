@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ministerio · Iglesia Vida de Fe</title>
+<link rel="icon" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="ministerios">
+
+<div id="intro"></div>
+<div id="content"></div>
+
+<script src="js/config.js"></script>
+<script src="js/data.js"></script>
+<script>
+(function () {
+  const t = o => `<span lang="es">${o.es}</span><span lang="en">${o.en}</span>`;
+  const slug = new URLSearchParams(location.search).get("m");
+  const m = VDF_MIN.find(x => x.slug === slug) || VDF_MIN[0];
+  const C = VDF_CONFIG;
+  document.title = m.name.es + " · Iglesia Vida de Fe";
+
+  // ---- intro animada: (logo) → nombre letra por letra → versículos por los lados → se levanta
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let seen = false; try { seen = sessionStorage.getItem("vdf-intro-" + m.slug) === "1"; } catch (e) {}
+  if (!reduce && !seen) {
+    let lang = (navigator.language || "es").slice(0, 2) === "en" ? "en" : "es";
+    try { const s = localStorage.getItem("vdf-lang"); if (s) lang = s === "en" ? "en" : "es"; } catch (e) {}
+    const nm = m.name[lang];
+    const start = m.logo ? 1.0 : 0.5;
+    const letters = [...nm].map((c, i) => `<span class="ch" style="--i:${i}">${c === " " ? " " : c}</span>`).join("");
+    const sub = start + nm.length * 0.05 + 0.4;
+    const v = m.verses;
+    const vHtml = v.length > 1
+      ? `<div class="i-verses"><p class="i-v l">“${v[0][lang]}”<cite>${v[0].ref[lang]}</cite></p><p class="i-v r">“${v[1][lang]}”<cite>${v[1].ref[lang]}</cite></p></div>`
+      : `<div class="i-verses" style="grid-template-columns:1fr"><p class="i-v l" style="text-align:center">“${v[0][lang]}”<cite>${v[0].ref[lang]}</cite></p></div>`;
+    const v1 = sub + 0.5, v2 = sub + 0.85, out = v2 + 1.9;
+    document.getElementById("intro").innerHTML = `<div class="intro" style="--start:${start}s;--sub:${sub}s;--v1:${v1}s;--v2:${v2}s;--out:${out}s" aria-hidden="true">
+      <div class="intro-inner">
+        ${m.logo ? `<img class="i-logo" src="${m.logo}" alt="">` : ""}
+        <div class="i-eyebrow">${m.eyebrow[lang]}</div>
+        <div class="i-name" aria-label="${nm}">${letters}</div>
+        <div class="gold-rule"></div>
+        ${vHtml}
+      </div>
+      <button class="skip" type="button">${lang === "en" ? "Skip" : "Saltar"}</button>
+    </div>`;
+    const el = document.querySelector(".intro");
+    const done = () => el.classList.add("gone");
+    el.querySelector(".skip").addEventListener("click", done);
+    el.addEventListener("animationend", e => { if (e.animationName === "introOut") done(); });
+    try { sessionStorage.setItem("vdf-intro-" + m.slug, "1"); } catch (e) {}
+  }
+
+  // ---- contenido
+  const vMain = m.verses[0];
+  const acts = m.acts.map(a => `<li><i class="dot"></i><div><b>${t(a.t)}</b><span>${t(a.d)}</span></div></li>`).join("");
+  const monthsEs = ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"], monthsEn = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+  const cal = m.months ? `<div class="card reveal"><h3>${t({ es: "Calendario de sociales", en: "Fellowship calendar" })}</h3><p class="muted">${t({ es: "Una vez al mes, febrero a julio y septiembre a noviembre", en: "Once a month, February to July and September to November" })}</p><div class="months">${monthsEs.map((x, i) => `<div class="m${m.months.includes(i) ? " on" : ""}">${t({ es: x, en: monthsEn[i] })}</div>`).join("")}</div></div>` : "";
+  const extra = m.verses.slice(1).map(v => `<blockquote class="verse reveal">“${t({ es: v.es, en: v.en })}”<cite>${t(v.ref)}</cite></blockquote>`).join("");
+  const album = m.album ? m.album : C.facebook;
+  const formLink = m.form === "necesidad" ? `<a class="btn wood" href="ayuda.html#necesidad">${t({ es: "Solicitar ayuda", en: "Request help" })}</a>` : `<a class="btn wood" href="ayuda.html#conocer">${t({ es: "Quiero participar", en: "I want to join" })}</a>`;
+
+  document.getElementById("content").innerHTML = `
+  <section class="page-hero">
+    <div class="wrap">
+      <a class="back" href="ministerios.html"><span aria-hidden="true">←</span> ${t({ es: "Ministerios", en: "Ministries" })}</a>
+      ${m.logo ? `<img class="min-hero-logo" src="${m.logo}" alt="">` : ""}
+      <div class="label">${t(m.eyebrow)}</div>
+      <h1>${t(m.name)}</h1>
+      <blockquote class="verse" style="max-width:34em;color:#f3f0ea">“${t({ es: vMain.es, en: vMain.en })}”<cite>${t(vMain.ref)}</cite></blockquote>
+    </div>
+  </section>
+  <main>
+    <section class="section">
+      <div class="wrap split" style="align-items:start">
+        <div class="stack reveal">
+          <div class="label">${t({ es: "Qué hacemos", en: "What we do" })}</div>
+          <p class="lead">${t(m.desc)}</p>
+          <ul class="list" style="margin-top:10px">${acts}</ul>
+        </div>
+        <div class="stack">
+          ${cal}
+          <div class="card reveal">
+            <h3>${t({ es: "Fotos", en: "Photos" })}</h3>
+            <p class="muted">${t({ es: "Mira las fotos de nuestras actividades en Facebook.", en: "See photos of our activities on Facebook." })}</p>
+            <div class="btn-row"><a class="btn" href="${album}" target="_blank" rel="noopener">${t({ es: "Ver fotos en Facebook", en: "See photos on Facebook" })}</a></div>
+          </div>
+          <div class="card reveal">
+            <h3>${t({ es: "Sé parte", en: "Get involved" })}</h3>
+            <p class="muted">${t({ es: "Llama a la oficina al " + C.phone + " o escríbenos.", en: "Call the office at " + C.phone + " or send us a message." })}</p>
+            <div class="btn-row">${formLink}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    ${extra ? `<section class="section band"><div class="wrap verses-2">${extra}</div></section>` : ""}
+  </main>`;
+})();
+</script>
+<script src="js/site.js"></script>
+</body>
+</html>

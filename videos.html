@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Videos · Iglesia Vida de Fe</title>
+<meta name="description" content="Cultos en vivo, sermones, series y estudios de la Iglesia Vida de Fe.">
+<link rel="icon" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="videos">
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="label"><span lang="es">La Palabra</span><span lang="en">The Word</span></div>
+    <h1><span lang="es">Videos</span><span lang="en">Videos</span></h1>
+    <p class="hero-sub" style="max-width:36em"><span lang="es">Cultos en vivo, series de predicaciones, estudios y pensamientos.</span><span lang="en">Live services, sermon series, studies and devotionals.</span></p>
+  </div>
+</section>
+
+<main>
+  <section class="section" id="series-sec">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="label"><span lang="es">Series</span><span lang="en">Series</span></div>
+        <h2><span lang="es">Desde el principio</span><span lang="en">From the beginning</span></h2>
+        <p class="muted"><span lang="es">Las series se ven en orden, desde el primer mensaje.</span><span lang="en">Series play in order, starting with the first message.</span></p>
+      </div>
+      <div class="series" id="series"></div>
+    </div>
+  </section>
+
+  <section class="section band-2" style="padding-top:0;background:transparent;color:inherit">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="label"><span lang="es">Categorías</span><span lang="en">Categories</span></div>
+        <h2><span lang="es">Lo más reciente</span><span lang="en">Most recent</span></h2>
+      </div>
+      <div class="tabs" role="tablist" id="tabs"></div>
+      <div class="vgrid" id="grid"></div>
+      <div id="fallback" hidden></div>
+    </div>
+  </section>
+
+  <section class="section band" id="en-vivo">
+    <div class="wrap split" style="align-items:start">
+      <div class="stack reveal">
+        <div class="label"><span lang="es">En vivo</span><span lang="en">Live</span></div>
+        <h2><span lang="es">Transmitimos por Facebook</span><span lang="en">We stream on Facebook</span></h2>
+        <p class="muted"><span lang="es">Domingo 10 am · Martes 7 pm · Miércoles 7 pm. Cuando estemos en vivo, el culto aparece aquí.</span><span lang="en">Sunday 10 am · Tuesday 7 pm · Wednesday 7 pm. When we're live, the service shows up here.</span></p>
+        <div class="btn-row"><a class="btn wood" href="https://www.facebook.com/vidadefe.vinelandnj/live" target="_blank" rel="noopener" data-live><span lang="es">Ver en Facebook</span><span lang="en">Watch on Facebook</span></a></div>
+      </div>
+      <div class="fb-box reveal">
+        <iframe title="Facebook en vivo" loading="lazy" src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fvidadefe.vinelandnj&tabs=timeline&width=500&height=640&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false"></iframe>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-label="Video">
+  <div class="box"><button class="close" type="button"><span lang="es">Cerrar</span><span lang="en">Close</span> ✕</button><div class="embed"><iframe id="player" title="Video" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div></div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/data.js"></script>
+<script src="js/site.js"></script>
+<script src="js/videos.js"></script>
+</body>
+</html>
