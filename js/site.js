@@ -23,6 +23,7 @@
     ["index.html", "inicio", { es: "Inicio", en: "Home" }],
     ["visitanos.html", "visitanos", { es: "Visítanos", en: "Visit" }],
     ["nosotros.html", "nosotros", { es: "Nosotros", en: "About" }],
+    ["nosotros.html#ancianos", "ancianos", { es: "Ancianos", en: "Elders" }],
     ["ministerios.html", "ministerios", { es: "Ministerios", en: "Ministries" }],
     ["videos.html", "videos", { es: "Videos", en: "Videos" }],
     ["eventos.html", "eventos", { es: "Eventos", en: "Events" }],
